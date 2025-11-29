@@ -1,0 +1,225 @@
+﻿.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.case-opening-container {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 2px solid rgba(233, 69, 96, 0.3);
+  padding: 2rem;
+  text-align: center;
+  animation: slideUp 0.5s ease-out;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(233, 69, 96, 0.3);
+  transform: scale(1.1);
+}
+
+.case-preview {
+  margin-bottom: 2rem;
+}
+
+.case-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 3px solid #e94560;
+  margin-bottom: 1rem;
+}
+
+.open-case-btn {
+  background: linear-gradient(45deg, #e94560, #ff6b9c);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.open-case-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+}
+
+.opening-animation {
+  margin: 2rem 0;
+}
+
+.spinning-items {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  animation: spin 3s ease-in-out;
+}
+
+.spinning-item {
+  animation: float 2s ease-in-out infinite;
+}
+
+.item-spin-image {
+  width: 100px;
+  height: 75px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.opening-text {
+  color: #e94560;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+.result-section {
+  margin: 2rem 0;
+}
+
+.won-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  border-left: 4px solid;
+  animation: celebrate 0.5s ease-out;
+}
+
+.rarity-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.won-item-image {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  margin: 1rem 0;
+  border-radius: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.item-name {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-value {
+  color: #00ff88;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.continue-btn {
+  background: linear-gradient(45deg, #00ff88, #00cc6a);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(720deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes celebrate {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .case-opening-container {
+    width: 95%;
+    padding: 1rem;
+  }
+  
+  .case-image, .won-item-image {
+    width: 150px;
+    height: 112px;
+  }
+  
+  .open-case-btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+}

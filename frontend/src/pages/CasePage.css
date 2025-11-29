@@ -1,0 +1,409 @@
+﻿/* src/pages/CasePage.css */
+.case-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%);
+  color: white;
+  padding: 2rem;
+}
+
+.loading, .error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.back-home {
+  color: #e94560;
+  text-decoration: none;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.case-header h1 {
+  color: #e94560;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.case-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.case-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.case-preview {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.case-image-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.case-image {
+  width: 300px;
+  height: 225px;
+  object-fit: contain;
+  border-radius: 15px;
+  border: 3px solid #e94560;
+  box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+  transition: all 0.3s ease;
+}
+
+.case-image-container.opening .case-image {
+  animation: pulse 0.5s infinite alternate;
+}
+
+.opening-animation {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid #00ff88;
+  border-radius: 20px;
+  animation: spin 1s linear infinite;
+}
+
+.open-case-button {
+  background: linear-gradient(45deg, #e94560, #ff6b9c);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+}
+
+.open-case-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(233, 69, 96, 0.6);
+}
+
+.open-case-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.open-case-button.opening {
+  background: linear-gradient(45deg, #00ff88, #00cc6a);
+}
+
+.balance-warning {
+  color: #ff6b6b;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.won-item {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 2px solid #00ff88;
+}
+
+.won-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 3px solid;
+}
+
+.won-item-image {
+  width: 150px;
+  height: 112px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.won-item-info h4 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.won-item-rarity {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.won-item-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+.continue-button {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.continue-button:hover {
+  background: #ff6b9c;
+}
+
+.case-items h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #e94560;
+  font-size: 2rem;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.item-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border-left: 4px solid;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.item-rarity-bar {
+  position: absolute;
+  top: 0;
+  left: -4px;
+  width: 4px;
+  height: 100%;
+  border-radius: 2px 0 0 2px;
+}
+
+.item-image {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+}
+
+.item-info h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.item-rarity {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.item-value {
+  color: #00ff88;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.item-chance {
+  color: #b0c3d9;
+  font-size: 0.9rem;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .case-page {
+    padding: 1rem;
+  }
+  
+  .case-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .case-image {
+    width: 250px;
+    height: 187px;
+  }
+  
+  .won-item-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Добавьте в CasePage.css */
+
+.open-options {
+  margin-top: 20px;
+}
+
+.count-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.count-button {
+  padding: 10px 20px;
+  border: 2px solid #4b69ff;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.count-button.active {
+  background: #4b69ff;
+  color: white;
+}
+
+.count-button:hover:not(.active) {
+  background: rgba(75, 105, 255, 0.2);
+}
+
+.count-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.open-case-button {
+  width: 100%;
+  max-width: 300px;
+}
+.open-options {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.count-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.count-button {
+  padding: 12px 20px;
+  border: 2px solid #4b69ff;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 50px;
+}
+
+.count-button.active {
+  background: #4b69ff;
+  color: white;
+}
+
+.count-button:hover:not(.active) {
+  background: rgba(75, 105, 255, 0.2);
+}
+
+.count-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.open-case-button {
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  background: linear-gradient(135deg, #4b69ff, #6b8bff);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.open-case-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.open-case-button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(75, 105, 255, 0.4);
+}

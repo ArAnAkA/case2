@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Проверка изображений</title>
+</head>
+<body>
+    <h1>Проверка загрузки изображений</h1>
+    <div id="images"></div>
+    
+    <script>
+        const images = [
+            '/skins/dragon/case_image.jpg',
+            '/skins/dragon/ak47_redline.jpg',
+            '/skins/dragon/awp_dragon_lore.jpg',
+            // добавьте все остальные пути
+        ];
+        
+        const container = document.getElementById('images');
+        
+        images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.style.width = '100px';
+            img.style.margin = '10px';
+            img.onerror = () => {
+                img.style.border = '2px solid red';
+                console.error('Не загружено:', src);
+            };
+            img.onload = () => {
+                img.style.border = '2px solid green';
+            };
+            container.appendChild(img);
+        });
+    </script>
+</body>
+</html>

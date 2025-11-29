@@ -1,0 +1,788 @@
+/* src/components/CosmicCaseOpening.css */
+
+/* Добавьте в начало CosmicCaseOpening.css */
+/* Сброс стилей для избежания конфликтов */
+.cosmic-case-overlay * {
+  box-sizing: border-box;
+}
+
+/* Убедитесь, что эти стили применяются только к компоненту открытия кейсов */
+.cosmic-case-overlay .case-card {
+  /* Стили специфичные для открытия кейсов */
+  width: 280px !important;
+  height: 320px !important;
+  padding: 25px !important;
+}
+
+.cosmic-case-overlay .item-card {
+  /* Стили специфичные для предметов в открытии */
+  width: 280px !important;
+  height: 320px !important;
+  padding: 25px !important;
+}
+.cosmic-case-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.cosmic-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 100%);
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+    radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 40px, #ddd, transparent),
+    radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+    radial-gradient(2px 2px at 160px 30px, #eee, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: starsMove 20s linear infinite;
+}
+
+.nebula {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(75, 105, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(211, 44, 230, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(235, 75, 75, 0.1) 0%, transparent 50%);
+  animation: nebulaPulse 8s ease-in-out infinite;
+}
+
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(100px); }
+}
+
+@keyframes nebulaPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.cosmic-case-container {
+  position: relative;
+  background: rgba(25, 25, 60, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow-y: auto;
+  border: 1px solid rgba(75, 105, 255, 0.3);
+  box-shadow: 0 0 50px rgba(75, 105, 255, 0.2);
+}
+
+.case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.case-title {
+  color: white;
+  font-size: 28px;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.case-price {
+  color: #ffd700;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Контейнер для множественного открытия */
+.animation-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  margin: 30px 0;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.animation-stage.multi-1 {
+  justify-content: center;
+}
+
+.animation-stage.multi-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.animation-stage.multi-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 30px auto;
+}
+
+.animation-stage.multi-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 50px;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+.animation-stage.multi-5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+/* Для 5 элементов последний элемент центрируем */
+.animation-stage.multi-5 .case-slot:nth-child(5) {
+  grid-column: 2;
+}
+
+.case-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  min-width: 280px;
+  padding: 0;
+}
+
+/* Карточка кейса */
+.case-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 280px;
+  height: 320px;
+  transition: all 0.5s ease;
+}
+
+.case-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+
+.case-container.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.case-image {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.case-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(75, 105, 255, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Карточка предмета */
+.won-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.won-item.revealed {
+  opacity: 1;
+}
+
+.won-item.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.item-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(30, 30, 45, 0.95);
+  padding: 25px;
+  border-radius: 15px;
+  border: 2px solid var(--rarity-color);
+  box-shadow: var(--rarity-glow);
+  width: 280px;
+  height: 320px;
+  transition: all 0.5s ease;
+}
+
+.item-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--rarity-color) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.item-image-container {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.item-info {
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.item-name {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.3;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-rarity {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: inline-block;
+  color: white;
+}
+
+.item-value {
+  color: #ffd700;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.light-beams {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+}
+
+.light-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 150px;
+  background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.8));
+  transform-origin: bottom center;
+  opacity: 0;
+}
+
+.beam-1 { transform: translate(-50%, -50%) rotate(0deg); }
+.beam-2 { transform: translate(-50%, -50%) rotate(120deg); }
+.beam-3 { transform: translate(-50%, -50%) rotate(240deg); }
+
+.case-container.shaking .light-beam {
+  animation: beamRotate 0.5s ease-in-out;
+}
+
+@keyframes beamRotate {
+  0%, 100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scaleY(0); }
+  50% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scaleY(1); }
+}
+
+@keyframes caseShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-2deg); }
+  75% { transform: translateX(5px) rotate(2deg); }
+}
+
+.case-container.shaking {
+  animation: caseShake 0.5s ease-in-out;
+}
+
+/* Панель управления */
+.control-panel {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.open-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.count-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.count-btn {
+  padding: 12px 20px;
+  border: 2px solid #4b69ff;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  min-width: 50px;
+  font-size: 16px;
+}
+
+.count-btn.active {
+  background: #4b69ff;
+  color: white;
+}
+
+.count-btn:hover:not(.active) {
+  background: rgba(75, 105, 255, 0.2);
+}
+
+.open-button {
+  position: relative;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #4b69ff, #6b8bff);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  min-width: 320px;
+}
+
+.open-button.disabled {
+  background: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.open-button:not(.disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(75, 105, 255, 0.4);
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.open-button:not(.disabled):hover .button-glow {
+  left: 100%;
+}
+
+/* Панель результатов */
+.result-panel {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.total-value, .items-count {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.total-value span, .items-count span {
+  color: #ffd700;
+  font-size: 20px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.keep-button {
+  background: linear-gradient(135deg, #4b69ff, #6b8bff);
+}
+
+.sell-button {
+  background: linear-gradient(135deg, #eb4b4b, #ff6b6b);
+  font-size: 14px;
+  padding: 14px 18px;
+}
+
+.another-button {
+  background: linear-gradient(135deg, #8847ff, #a867ff);
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.completion-message {
+  text-align: center;
+  color: #4bff4b;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.success-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* Анимация появления предметов */
+@keyframes itemReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotateY(180deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotateY(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1200px) {
+  .animation-stage.multi-5 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  
+  .animation-stage.multi-5 .case-slot:nth-child(5) {
+    grid-column: 1 / span 2;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .cosmic-case-container {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .animation-stage.multi-3,
+  .animation-stage.multi-4,
+  .animation-stage.multi-5 {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .animation-stage.multi-5 .case-slot:nth-child(5) {
+    grid-column: 1;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .action-button {
+    min-width: 200px;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .case-slot {
+    min-width: 260px;
+    min-height: 300px;
+  }
+  
+  .case-card,
+  .item-card {
+    width: 260px;
+    height: 300px;
+    padding: 20px;
+  }
+  
+  .case-image,
+  .item-image-container {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .result-info {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .case-title {
+    font-size: 20px;
+  }
+  
+  .case-price {
+    font-size: 18px;
+  }
+  
+  .count-selector {
+    gap: 8px;
+  }
+  
+  .count-btn {
+    padding: 10px 16px;
+    min-width: 45px;
+    font-size: 14px;
+  }
+  
+  .open-button {
+    min-width: 280px;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+  
+  .animation-stage {
+    gap: 20px;
+  }
+  
+  .case-slot {
+    min-width: 240px;
+  }
+  
+  .case-card,
+  .item-card {
+    width: 240px;
+    height: 280px;
+    padding: 15px;
+  }
+  
+  .case-image,
+  .item-image-container {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .item-name {
+    font-size: 14px;
+  }
+}
+/* Добавьте эти стили в существующий файл CosmicCaseOpening.css */
+
+.animation-stage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 300px;
+  padding: 20px;
+}
+
+.case-slot {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.case-container.idle {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.case-container.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Для разного количества кейсов - центрируем по разному */
+.animation-stage.multi-1 {
+  justify-content: center;
+}
+
+.animation-stage.multi-2,
+.animation-stage.multi-4 {
+  justify-content: space-around;
+}
+
+.animation-stage.multi-3,
+.animation-stage.multi-5 {
+  justify-content: center;
+  gap: 30px;
+}
+
+.count-selector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.count-btn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #4b69ff;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.count-btn.active {
+  background: #4b69ff;
+  transform: scale(1.1);
+}
+
+.count-btn:hover:not(.disabled) {
+  background: #4b69ff;
+  transform: scale(1.05);
+}
+
+.count-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
