@@ -9,27 +9,30 @@ import AdminEditCase from './pages/AdminEditCase';
 import CasePage from './pages/CasePage';
 import Inventory from './components/Inventory'; 
 import { BalanceProvider } from './context/BalanceContext';
+import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
 function App() {
   return (
-    <BalanceProvider>
-      <Router>
-        <div className="App">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/case/:caseId" element={<CasePage />} />
-              <Route path="/admin" element={<AdminPanel />} />
-              <Route path="/admin/add-case" element={<AdminAddCase />} />
-              <Route path="/admin/edit-case/:caseId" element={<AdminEditCase />} />
-              <Route path="/inventory" element={<Inventory />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </BalanceProvider>
+    <ThemeProvider>
+      <BalanceProvider>
+        <Router>
+          <div className="App">
+            <Header />
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/case/:caseId" element={<CasePage />} />
+                <Route path="/admin" element={<AdminPanel />} />
+                <Route path="/admin/add-case" element={<AdminAddCase />} />
+                <Route path="/admin/edit-case/:caseId" element={<AdminEditCase />} />
+                <Route path="/inventory" element={<Inventory />} />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </BalanceProvider>
+    </ThemeProvider>
   );
 }
 

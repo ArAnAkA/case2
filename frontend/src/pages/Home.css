@@ -1,43 +1,199 @@
 /* src/pages/Home.css */
-.home-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0c0c2e 0%, #1a1a3e 100%);
-  color: white;
+
+/* === Основные CSS-переменные === */
+:root {
+  --primary: #4b69ff;
+  --primary-hover: #6b8bff;
+  --primary-active: #3a56e0;
+  --secondary: #d32ce6;
+  --accent: #ffd700;
+  --danger: #eb4b4b;
+  --dark-bg: #0c0c2e;
+  --light-bg: rgba(255, 255, 255, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --text: white;
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-primary: rgba(75, 105, 255, 0.3);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 15px;
+  --font-title: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-body: 'Roboto', Arial, sans-serif;
+
+  /* Переменные для темы — можно переопределить в light/dark */
+  --bg: var(--dark-bg);
 }
 
-/* Hero Section */
+/* === Светлая и тёмная тема === */
+.light-theme {
+  --bg: #f5f5ff;
+  --card-bg: #ffffff;
+  --text: #1a1a3e;
+  --text-muted: #555;
+  --border: #ddd;
+}
+
+.dark-theme {
+  --bg: #0c0c2e;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --text: white;
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Основной фон с поддержкой темы === */
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg) 0%, #1a1a3e 100%);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* === Accessibility: Reduce motion === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Typography === */
+h1, h2, h3 {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+/* === Hero Section === */
 .hero-section {
-  padding: 80px 20px 60px;
+  padding: 100px 20px 80px;
   text-align: center;
-  background: radial-gradient(circle at center, rgba(75, 105, 255, 0.1) 0%, transparent 50%);
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(75, 105, 255, 0.15), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(211, 44, 230, 0.1), transparent 40%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    var(--primary),
+    transparent,
+    var(--secondary),
+    transparent
+  );
+  animation: rotate 8s linear infinite;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-title {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #4b69ff, #d32ce6);
+  font-size: 56px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .hero-description {
   font-size: 20px;
-  margin-bottom: 30px;
-  opacity: 0.9;
+  margin-bottom: 32px;
+  color: var(--text-muted);
 }
 
+/* === Progress Bar (Loading State) === */
+.progress-bar {
+  width: 80%;
+  max-width: 300px;
+  height: 6px;
+  background: var(--light-bg);
+  border-radius: 3px;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+  animation: fill-progress 2s ease-in-out forwards;
+}
+
+@keyframes fill-progress {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* === Контейнер для элементов управления в шапке === */
+.header-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 1000;
+}
+
+/* === Отображение баланса === */
+.balance-display {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.balance-display span {
+  color: #00ff88;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* === Hero Stats === */
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 50px;
   margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .stat {
@@ -45,218 +201,341 @@
 }
 
 .stat-number {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--accent);
   display: block;
-  font-size: 36px;
-  font-weight: bold;
-  color: #4b69ff;
+  text-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
 }
 
 .stat-label {
-  font-size: 14px;
-  opacity: 0.8;
+  font-size: 13px;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
 }
 
+/* === Hero Actions === */
 .hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-top: 30px;
 }
 
 .cta-button {
-  display: inline-block;
-  padding: 15px 30px;
-  background: linear-gradient(135deg, #4b69ff, #6b8bff);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  min-width: 140px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   color: white;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 18px;
-  transition: all 0.3s ease;
 }
 
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(75, 105, 255, 0.4);
+.cta-button.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px var(--shadow-primary);
 }
 
-/* Cases Section */
+.cta-button.primary:active {
+  transform: translateY(0);
+  background: linear-gradient(135deg, var(--primary-active), var(--primary));
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.cta-button.secondary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* === Cases Section === */
 .cases-section {
-  padding: 60px 20px;
-  max-width: 1200px;
+  padding: 80px 20px 100px;
+  max-width: 1400px;
   margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
+  width: 100%;
 }
 
 .section-header h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
-  color: white;
+  font-size: 40px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-header p {
   font-size: 18px;
-  opacity: 0.8;
+  color: var(--text-muted);
 }
 
-/* Cases Grid - УМЕНЬШЕНЫ РАЗМЕРЫ ДЛЯ ПОМЕЩЕНИЯ ВСЕГО КОНТЕНТА */
+/* === Счетчик кейсов === */
+.cases-counter {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.cases-counter strong {
+  color: var(--accent);
+}
+
+/* === Улучшенное выравнивание и стили для карточек кейсов === */
 .cases-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
   justify-items: center;
   align-items: start;
   width: 100%;
+  padding: 0 20px;
 }
 
+/* === Улучшенная карточка кейса с фиксированной высотой === */
 .case-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  padding: 20px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 0;
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+  border: 1px solid var(--border);
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
-  min-height: 380px;
-  justify-content: flex-start; /* Изменил на flex-start */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px var(--shadow);
+  overflow: hidden;
+  position: relative;
+  min-height: 400px;
+  height: 100%;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.case-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.case-card:hover::before {
+  opacity: 1;
 }
 
 .case-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(75, 105, 255, 0.3);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  background: var(--light-bg);
+  border-color: rgba(75, 105, 255, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
-.case-image-container {
-  width: 150px; /* Уменьшил размер изображения */
-  height: 150px;
+.case-card:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* === Заголовок кейса сверху === */
+.case-card-header {
+  width: 100%;
+  padding: 20px 15px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--border);
+}
+
+.case-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+}
+
+/* === Glow Effect on Image === */
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 15px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 12px;
-  box-sizing: border-box;
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    circle at center,
+    rgba(75, 105, 255, 0.2),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 12px;
+}
+
+.case-card:hover .glow-effect::after {
+  opacity: 1;
+}
+
+/* === Улучшенный контейнер для изображения === */
+.case-image-container {
+  width: 200px;
+  height: 150px;
+  background: var(--light-bg);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
   flex-shrink: 0;
+  border: 2px solid transparent;
+}
+
+.case-card:hover .case-image-container {
+  transform: scale(1.05);
+  border-color: rgba(75, 105, 255, 0.3);
 }
 
 .case-card-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 6px;
+  transition: var(--transition);
 }
 
-.case-card-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.case-card:hover .case-card-image {
+  filter: brightness(1.1) saturate(1.1);
+}
+
+/* === Контейнер цены внизу === */
+.case-card-footer {
   width: 100%;
-  justify-content: space-between;
-  min-height: 150px; /* Добавил минимальную высоту для контента */
-}
-
-.case-card-title {
-  font-size: 16px; /* Уменьшил размер шрифта */
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: white;
-  line-height: 1.3;
-  min-height: 40px; /* Уменьшил минимальную высоту */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--border);
 }
 
 .case-card-price {
-  font-size: 20px; /* Уменьшил размер шрифта */
-  font-weight: bold;
-  color: #ffd700;
-  margin-bottom: 5px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 2px 8px rgba(255, 215, 0, 0.5);
 }
 
-.case-items-count {
-  font-size: 13px; /* Уменьшил размер шрифта */
-  opacity: 0.7;
-  margin-bottom: 15px;
+/* === Индикатор кликабельности === */
+.case-card::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.open-case-link {
-  display: inline-block;
-  padding: 10px 20px; /* Уменьшил padding */
-  background: linear-gradient(135deg, #4b69ff, #6b8bff);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  width: 100%;
-  max-width: 180px; /* Уменьшил максимальную ширину */
-  box-sizing: border-box;
-  font-size: 14px; /* Уменьшил размер шрифта */
-  margin-top: 10px;
+.case-card:hover::after {
+  opacity: 1;
 }
 
-.open-case-link:hover {
-  background: linear-gradient(135deg, #6b8bff, #4b69ff);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(75, 105, 255, 0.4);
+/* === Анимация появления карточек === */
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); 
+  }
 }
 
-/* Loading States */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-  gap: 20px;
+.case-card {
+  animation: cardAppear 0.6s ease-out forwards;
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.1);
-  border-left: 5px solid #4b69ff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
+.case-card:nth-child(1) { animation-delay: 0.1s; }
+.case-card:nth-child(2) { animation-delay: 0.2s; }
+.case-card:nth-child(3) { animation-delay: 0.3s; }
+.case-card:nth-child(4) { animation-delay: 0.4s; }
+.case-card:nth-child(5) { animation-delay: 0.5s; }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Error States */
+/* === Error Message === */
 .error-message {
   background: rgba(235, 75, 75, 0.1);
   border: 1px solid rgba(235, 75, 75, 0.3);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  margin: 20px 0;
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 24px 0;
+  color: #ffcccc;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: shake 0.6s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
 }
 
 .retry-btn {
-  background: #eb4b4b;
+  background: var(--danger);
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .retry-btn:hover {
@@ -264,53 +543,93 @@
   transform: translateY(-2px);
 }
 
-/* No Cases State */
+/* === No Cases State === */
 .no-cases {
   text-align: center;
-  padding: 60px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 80px 20px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  max-width: 500px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .no-cases-icon {
-  font-size: 60px;
+  font-size: 70px;
   margin-bottom: 20px;
+  display: block;
 }
 
 .no-cases h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: white;
+  font-size: 26px;
+  margin-bottom: 12px;
+  color: var(--text);
 }
 
 .no-cases p {
-  margin-bottom: 20px;
-  opacity: 0.8;
+  margin-bottom: 24px;
+  color: var(--text-muted);
 }
 
 .reset-btn {
   background: linear-gradient(135deg, #8847ff, #a867ff);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 5px 15px rgba(136, 71, 255, 0.3);
 }
 
 .reset-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(136, 71, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(136, 71, 255, 0.4);
 }
 
-/* АДАПТИВНЫЕ МЕДИА-ЗАПРОСЫ */
-/* Большие экраны (1200px и выше) */
+/* === Переключатель темы === */
+.theme-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: var(--primary);
+  color: white;
+}
+
+/* === Media Queries === */
+
+/* Большие экраны (1400px+) */
+@media (min-width: 1400px) {
+  .cases-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+}
+
+/* Ноутбуки (1200px - 1399px) */
 @media (min-width: 1200px) {
   .cases-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
   }
 }
 
@@ -318,115 +637,88 @@
 @media (min-width: 768px) and (max-width: 1199px) {
   .cases-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 28px;
   }
-  
   .case-card {
     max-width: 280px;
-    min-height: 370px;
+    min-height: 380px;
   }
-  
   .case-image-container {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 135px;
   }
-  
   .case-card-title {
     font-size: 15px;
-    min-height: 38px;
-  }
-  
-  .case-card-price {
-    font-size: 18px;
   }
 }
 
-/* Телефоны (до 767px) */
+/* Мобильные (до 767px) */
 @media (max-width: 767px) {
   .hero-section {
-    padding: 60px 15px 40px;
+    padding: 70px 15px 50px;
   }
-  
   .hero-title {
-    font-size: 32px;
+    font-size: 40px;
   }
-  
   .cases-section {
-    padding: 40px 15px;
+    padding: 50px 15px;
   }
-  
-  .section-header h2 {
-    font-size: 28px;
-  }
-  
   .cases-grid {
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 28px;
   }
-  
-  .case-card {
-    max-width: 100%;
-    min-height: 350px;
-    padding: 18px;
+  .hero-stats {
+    gap: 35px;
   }
-  
-  .case-image-container {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 12px;
+  .stat-number {
+    font-size: 36px;
   }
-  
-  .case-card-title {
-    font-size: 16px;
-    min-height: 36px;
-    margin-bottom: 6px;
-  }
-  
-  .case-card-price {
-    font-size: 18px;
-    margin-bottom: 4px;
-  }
-  
-  .case-items-count {
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .open-case-link {
-    padding: 9px 18px;
-    font-size: 13px;
-    max-width: 160px;
-  }
-  
-  .no-cases {
-    padding: 40px 15px;
+  .header-controls {
+    position: relative;
+    top: 0;
+    right: 0;
+    justify-content: center;
+    margin-bottom: 20px;
   }
 }
 
-/* Очень маленькие телефоны (до 400px) */
-@media (max-width: 400px) {
+/* Маленькие мобильные (до 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 34px;
+  }
   .case-card {
-    padding: 15px;
-    min-height: 320px;
+    min-height: 350px;
   }
-  
   .case-image-container {
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 120px;
   }
-  
-  .case-card-title {
-    font-size: 15px;
-    min-height: 34px;
-  }
-  
-  .case-card-price {
+  .cta-button {
+    padding: 12px 24px;
     font-size: 16px;
   }
-  
-  .open-case-link {
-    padding: 8px 16px;
-    font-size: 12px;
-    max-width: 150px;
+  .case-card-title {
+    font-size: 14px;
+  }
+}
+
+/* Очень маленькие (до 360px) */
+@media (max-width: 360px) {
+  .hero-section {
+    padding: 60px 10px 40px;
+  }
+  .hero-title {
+    font-size: 30px;
+  }
+  .case-card {
+    min-height: 320px;
+  }
+  .case-image-container {
+    width: 140px;
+    height: 105px;
+  }
+  .case-card-title {
+    font-size: 13px;
   }
 }

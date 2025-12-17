@@ -1,0 +1,92 @@
+name: Deploy to Yandex Cloud
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMAGE: ghcr.io/${{ github.repository }}/backend
+  FRONTEND_IMAGE: ghcr.io/${{ github.repository }}/frontend
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ env.BACKEND_IMAGE }}:latest
+            ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+
+      - name: Build and push Frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ env.FRONTEND_IMAGE }}:latest
+            ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Yandex Cloud VM
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          BACKEND_IMG: ${{ env.BACKEND_IMAGE }}:latest
+          FRONTEND_IMG: ${{ env.FRONTEND_IMAGE }}:latest
+          GH_TOKEN: ${{ secrets.GHCR_TOKEN }}
+          GH_USER: ${{ github.actor }}
+        with:
+          host: ${{ secrets.YC_HOST }}
+          username: ${{ secrets.YC_USER }}
+          key: ${{ secrets.YC_SSH_KEY }}
+          envs: BACKEND_IMG,FRONTEND_IMG,GH_TOKEN,GH_USER
+          script: |
+            cd ~/cs2-casebattle
+            
+            # Login to GitHub Container Registry
+            echo "$GH_TOKEN" | docker login ghcr.io -u "$GH_USER" --password-stdin
+            
+            # Update .env with new image tags
+            sed -i "s|BACKEND_IMAGE=.*|BACKEND_IMAGE=$BACKEND_IMG|" .env
+            sed -i "s|FRONTEND_IMAGE=.*|FRONTEND_IMAGE=$FRONTEND_IMG|" .env
+            
+            # Pull latest images
+            docker pull $BACKEND_IMG
+            docker pull $FRONTEND_IMG
+            
+            # Stop and remove old containers
+            docker-compose -f docker-compose.prod.yml down
+            
+            # Start with new images
+            docker-compose -f docker-compose.prod.yml up -d
+            
+            # Clean up old images
+            docker image prune -f
+            
+            echo "Deployment completed successfully!"

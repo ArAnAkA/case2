@@ -76,7 +76,7 @@ const defaultCases = [
   },
   {
     id: "5",
-    name: "Dreams & Night Case",
+    name: "Dreams & Nightmares Case",
     price: 3.29,
     image: "/skins/dreams_and_nightmares_case.jpg",
     items: [
