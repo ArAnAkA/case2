@@ -6,14 +6,14 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including dev for build)
-RUN npm install --include=dev
+# Install all dependencies
+RUN npm ci --legacy-peer-deps
 
 # Copy all source code
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN npx vite build
 
 # Production stage with nginx
 FROM nginx:alpine
