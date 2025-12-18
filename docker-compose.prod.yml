@@ -26,7 +26,7 @@ services:
 
   # Backend API
   backend:
-    image: ${BACKEND_IMAGE:-ghcr.io/your-username/cs2-casebattle/backend:latest}
+    image: ${BACKEND_IMAGE:-ghcr.io/aranaka/case2/backend:latest}
     container_name: cs2cases-backend
     restart: always
     environment:
@@ -48,7 +48,7 @@ services:
 
   # Frontend (Nginx)
   frontend:
-    image: ${FRONTEND_IMAGE:-ghcr.io/your-username/cs2-casebattle/frontend:latest}
+    image: ${FRONTEND_IMAGE:-ghcr.io/aranaka/case2/frontend:latest}
     container_name: cs2cases-frontend
     restart: always
     ports:
